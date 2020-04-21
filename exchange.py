@@ -16,7 +16,16 @@ def home():
 
 class ExchangeRate(Resource):
      def get(self, country):
-         print(exchange_dict_list['observations'][country])
+         for i in exchange_dict_list['observations']:
+             print("keys are {}".format(i.keys()))
+             if i['d'] == '2019-01-01':
+                 try:
+                     print(i[country]['v'])
+                     return i[country]['v'], 200
+                 except KeyError as e:
+                    return "Not found", 404
+
+             #print("hello {}".format(i[country]))
 
          #return {'Currency': country}
 
