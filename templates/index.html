@@ -21,6 +21,7 @@ function getRate(currency, year, amount) {
   rate1 = parseFloat(response_trimmed_more);
   amount1 = parseFloat(amount);
   output1 = rate1 * amount1;
+  output1 = 'CDN $'+ output1
   $("output").text(output1);
 })
 }
