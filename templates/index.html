@@ -1,5 +1,6 @@
 <html>
 <head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script type="text/javascript">
   function httpGetAsync(theUrl, callback)  {
     var xmlHttp = new XMLHttpRequest();
@@ -10,18 +11,24 @@
     xmlHttp.open("GET", theUrl, true);
     xmlHttp.send(null);
   }
-function getRate(currency) {
-  exchangeRate = 'FXA'+currency+'CAD';
-  theUrl = 'http://127.0.0.1:5000/exchangerate/' + exchangeRate;
+function getRate(currency, year, amount) {
+  currency_year = 'currency='+'FXA'+currency+'CAD'+'&year='+year;
+  theUrl = 'http://127.0.0.1:5000/exchangerate?' + currency_year;
   httpGetAsync(theUrl, function(response) {
-  alert(response);
+  //put the response into output tag name to show the result
+  response_trimmed = response.trimRight('\"')
+  response_trimmed_more = response_trimmed.replace(/^"?(.+?)"?$/,'$1');
+  rate1 = parseFloat(response_trimmed_more);
+  amount1 = parseFloat(amount);
+  output1 = rate1 * amount1;
+  $("output").text(output1);
 })
 }
 </script>
 </head>
 <body>
 <form>
-  <select name="currency_dropdown" onchange="getRate(this.value)">
+  <select name="currency_dropdown" onchange="getRate(currency_dropdown.value, year_dropdown.value, amount.value)">
 	<option value="USD" selected="selected">United States Dollars</option>
 	<option value="EUR">Euro</option>
 	<option value="GBP">United Kingdom Pounds</option>
@@ -102,9 +109,21 @@ function getRate(currency) {
 	<option value="XPD">Palladium Ounces</option>
 	<option value="XPT">Platinum Ounces</option>
 </select>
+<select name="year_dropdown" onchange="getRate(currency_dropdown.value, year_dropdown.value, amount.value)">
+<option value="2017-01-01">2017</option>
+<option value="2018-01-01">2018</option>
+<option value="2019-01-01">2019</option>
+</select>
+<br>
+<br>
+The amount:<br>
+<input type="text" id="amount" name="amount">
 </form>
+<H3>Total:</H3>
 <div id="rate">
-<output>Hello</output>
+<h2>
+<output>???</output>
 </div>
+<h2>
 </body>
 </html>

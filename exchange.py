@@ -1,5 +1,5 @@
 from flask import Flask, request, render_template
-from flask_restful import Resource, Api
+from flask_restful import Resource, Api, reqparse
 import json
 
 app = Flask(__name__)
@@ -14,11 +14,20 @@ with open("FX_RATES_ANNUAL-sd-2017-01-01.json", "r") as f:
 def home():
     return render_template('index.html')
 
+parser = reqparse.RequestParser()
+parser.add_argument('country',type=str)
+parser.add_argument('year',type=str)
+
 class ExchangeRate(Resource):
-     def get(self, country):
+     def get(self):
+         #args = parser.parse_args()
+         country = request.args.get('currency')
+         year = request.args.get('year')
+         #the statement below is to see if we get the year
+         #print("the country is {} and the year is {}".format(country, year))
          for i in exchange_dict_list['observations']:
              print("keys are {}".format(i.keys()))
-             if i['d'] == '2019-01-01':
+             if i['d'] == year:
                  try:
                      print(i[country]['v'])
                      return i[country]['v'], 200
@@ -37,7 +46,7 @@ class ExchangeRate(Resource):
 #         raise print("Hello")
 #         return {'items': items}
 #
-api.add_resource(ExchangeRate, '/exchangerate/<string:country>') # htttp://127.0.0.1:5000/country/HKD
+api.add_resource(ExchangeRate, '/exchangerate') # htttp://127.0.0.1/country/HKD
 # api.add_resource(ItemList, '/items')
 
-app.run(port=5000, debug=True)
+app.run(debug=True)
