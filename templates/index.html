@@ -13,7 +13,7 @@
   }
 function getRate(currency, year, amount) {
   currency_year = 'currency='+'FXA'+currency+'CAD'+'&year='+year;
-  theUrl = 'http://127.0.0.1:5000/exchangerate?' + currency_year;
+  theUrl = 'http://192.168.1.72:80/exchangerate?' + currency_year;
   httpGetAsync(theUrl, function(response) {
   //put the response into output tag name to show the result
   response_trimmed = response.trimRight('\"')
@@ -27,7 +27,7 @@ function getRate(currency, year, amount) {
 </script>
 </head>
 <body>
-<form>
+<form onsubmit='getRate(this.currency_dropdown.value, this.year_dropdown.value, this.amount.value); return false;'>
   <select name="currency_dropdown" onchange="getRate(currency_dropdown.value, year_dropdown.value, amount.value)">
 	<option value="USD" selected="selected">United States Dollars</option>
 	<option value="EUR">Euro</option>
@@ -117,7 +117,8 @@ function getRate(currency, year, amount) {
 <br>
 <br>
 The amount:<br>
-<input type="text" id="amount" name="amount">
+<input type="text" id="amount" name="amount"><br><br>
+<input type="submit" name="submit" >
 </form>
 <H3>Total:</H3>
 <div id="rate">

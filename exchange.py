@@ -49,4 +49,4 @@ class ExchangeRate(Resource):
 api.add_resource(ExchangeRate, '/exchangerate') # htttp://127.0.0.1:5000/country/HKD
 # api.add_resource(ItemList, '/items')
 
-app.run(port=5000, debug=True)
+app.run(host='0.0.0.0', port=80, debug=True)
