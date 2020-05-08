@@ -8,6 +8,7 @@ api = Api(app)
 #comment 1
 #comment 2
 #comment 3
+#comment 4
 
 with open("FX_RATES_ANNUAL-sd-2017-01-01.json", "r") as f:
     exchange_dict_list = json.load(f)
