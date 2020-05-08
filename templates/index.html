@@ -13,7 +13,7 @@
   }
 function getRate(currency, year, amount) {
   currency_year = 'currency='+'FXA'+currency+'CAD'+'&year='+year;
-  theUrl = 'http://192.168.1.72:80/exchangerate?' + currency_year;
+  theUrl = 'http://127.0.0.1:5000/exchangerate?' + currency_year;
   httpGetAsync(theUrl, function(response) {
   //put the response into output tag name to show the result
   <!--

@@ -5,7 +5,7 @@ import json
 app = Flask(__name__)
 
 api = Api(app)
-
+#comment 1
 
 with open("FX_RATES_ANNUAL-sd-2017-01-01.json", "r") as f:
     exchange_dict_list = json.load(f)
@@ -49,4 +49,4 @@ class ExchangeRate(Resource):
 api.add_resource(ExchangeRate, '/exchangerate') # http://localhost:80/exchangerate?currency=FXAHKDCAD&year=2018-01-01
 # api.add_resource(ItemList, '/items')
 
-app.run(host='0.0.0.0', port=80, debug=True)
+app.run(port=5000, debug=True)
